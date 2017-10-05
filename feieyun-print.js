@@ -12,8 +12,7 @@ var printer = require('./feieyun-api');
 
 dw = mysql.createConnection(config.mysql);
 dw.connect();
-
-console.log(config);
+// console.log(config);
 
 function orderFormat(order,order_items){
 	var order_details  ="<L>" + printer.fill_with("名称",16)+printer.fill_with("数量",5)+printer.fill_with("单价",5)  +"</L><BR>";
@@ -35,7 +34,7 @@ function orderFormat(order,order_items){
 	  var method = "[直接配送]";
 	  if(merged_order_ids)
 	  	method = "[合单1/"+merged_order_ids.length+"]";
-	  var printData = "<BR><BR><C><L>" + date + ' ' + time + "</L><C><BR>" ;
+	  var printData = "<BR><BR><BR><C><L>" + date + ' ' + time + "</L><C><BR>" ;
 	  printData += "<CB>食秘江湖</CB>";
 	  printData += "<C><L>订单:["+order.id+"]  "+method+"</L></C><BR>";
 	  printData += "--------------------------------<BR>";
@@ -49,7 +48,7 @@ function orderFormat(order,order_items){
 	  printData += "<L>"+"电话:"+contact.mobile+"</L>"+"<BR>";
 	  printData += "<L>"+"地址:"+contact.address+"</L>"+"<BR><BR><BR><CUT>";
 	  console.log(printData);
-	  // printData = "test<BR>"
+	  printData = "test<BR>"
 	  return printData;
 }
 
@@ -68,15 +67,15 @@ function check(response,id){
 }
 
 
-function yunPrint(printer_id,id){
+function yunPrint(printer_id,id,amount){
 	if(!id){
 		console.log('id incorrect!!');
 		return ;
 	}
 
+	console.log(amount)
 
 	var q = 'SELECT * from `order` WHERE id='+id;
-	// q = 'select * from zhx_fact_enroll limit 1';
 
 	dw.query(q, function (error, results, fields) {
 	  if (error) 
@@ -91,7 +90,8 @@ function yunPrint(printer_id,id){
 
 		  var order_items = results;
 		  var printData = orderFormat(order,order_items);
-		  printer.print(printer_id,printData,check,order.id);
+		  printer.print(printer_id,printData,amount,check,order.id);
+
 			});
 	});
 
@@ -103,24 +103,29 @@ function yunPrint(printer_id,id){
 
 function print_by_shop(shop){
 	console.log(shop);
-	var q = 'SELECT * from `order` WHERE shop_id='+shop.shop_id +' and status > 10 and printed=0 ';
+	var q = 'SELECT * from `order` WHERE updated_at > CURDATE() and shop_id='+shop.shop_id +' and status > 10 and printed=0 limit 1';
 	console.log(q);
-	dw.query(q,function(error,response,fields){
+	// console.log('print_by_shop amount'+shop.amount)
+	// var amount = shop.amount;
+	dw.query(q,function(error,response,fields,id=shop.shop_id,amount=shop.amount){
+		// console.log(response);
 		response.forEach(function(order){
-		for(var i = 0;i<shop.amount;i++){
-			yunPrint(shop.printer_sn,order.id);
-		}
+		// console.log('print_by_shop '+ id + ' amount'+amount);
+		yunPrint(shop.printer_sn,order.id,shop.amount);
 	})
 })
 }
 
-setInterval(function(){
+// setInterval(function(){
 	var q = 'SELECT * from `yun_print` WHERE amount>0';
 	dw.query(q,function(error,response,fields){
-		console.log(response);
+		// console.log(response);
 		response.forEach(print_by_shop)
 	})
-}
-,10000);
+// },5000);
 
 // yunPrint('916506380',77);
+
+setTimeout(function(){
+ dw.end();
+},15000);

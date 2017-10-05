@@ -117,7 +117,7 @@ req.end();
 }
 
 
-function print(sn,orderInfo,callback,id){
+function print(sn,orderInfo,amount,callback,id){
 		
 		//标签说明：
 		//单标签:
@@ -149,6 +149,9 @@ function print(sn,orderInfo,callback,id){
 		// orderInfo += "----------请扫描二维码----------";
 		// orderInfo += "<QR>http://www.dzist.com</QR>";//把二维码字符串用标签套上即可自动生成二维码
 
+	if( amount<1 || amount >5 )
+		var amount = 1;
+
 	var post_data = {
 		user:USER,//账号
 		stime:STIME,//当前时间的秒数，请求时间
@@ -156,8 +159,9 @@ function print(sn,orderInfo,callback,id){
 		apiname:"Open_printMsg",//不需要修改
 		sn:sn,//打印机编号
 		content:orderInfo,//打印内容
-		times:"1"//打印联数,默认为1
+		times:amount//打印联数,默认为1
 		};     
+	console.log(amount);
 	var content = qs.stringify(post_data);  
 	var options = {  
 		hostname:HOST,  
