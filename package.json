@@ -1,0 +1,27 @@
+{
+  "name": "xshop-yun-print",
+  "version": "1.0.0",
+  "description": "使用nodejs API接入飞鹅云打印系统",
+  "main": "feieyun-print.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wupanhao/feieyun-print-nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "feieyun",
+    "print"
+  ],
+  "author": "panhao wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wupanhao/feieyun-print-nodejs/issues"
+  },
+  "homepage": "https://github.com/wupanhao/feieyun-print-nodejs#readme",
+  "dependencies": {
+    "mysql": "^2.14.1"
+  }
+}
