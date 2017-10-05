@@ -149,7 +149,7 @@ function print(sn,orderInfo,amount,callback,id){
 		// orderInfo += "----------请扫描二维码----------";
 		// orderInfo += "<QR>http://www.dzist.com</QR>";//把二维码字符串用标签套上即可自动生成二维码
 
-	if( amount<1 || amount >5 )
+	if(! (0 < amount && amount < 6) )
 		var amount = 1;
 
 	var post_data = {

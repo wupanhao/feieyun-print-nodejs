@@ -37,18 +37,18 @@ function orderFormat(order,order_items){
 	  var printData = "<BR><BR><BR><C><L>" + date + ' ' + time + "</L><C><BR>" ;
 	  printData += "<CB>食秘江湖</CB>";
 	  printData += "<C><L>订单:["+order.id+"]  "+method+"</L></C><BR>";
-	  printData += "--------------------------------<BR>";
+	  printData += "--------------------------------<BR><BR>";
 	  printData += order_details;//       
 	  printData += "<L>"+"配送费:"+price_detail.delivery_price+"</L>"+"<BR>";
 	  printData += "<L>"+"总  计:"+order.actual_price+"</L>"+"<BR>";
-	  printData += "<L>"+"优  惠:"+order.actual_price - order.total_price+"</L>"+"<BR>";
+	  printData += "<L>"+"优  惠:"+ (order.actual_price - order.total_price)+"</L>"+"<BR>";
 	  printData += "<L>"+"实  付:"+order.total_price+"</L>"+"<BR>";
-	  printData += "<L>"+"配送详情"+"</L>"+"<BR>";
+	  printData += "<BR><BR><L>"+"配送详情"+"</L>"+"<BR>";
 	  printData += "<L>"+"姓名:"+contact.name+"</L>"+"<BR>";
 	  printData += "<L>"+"电话:"+contact.mobile+"</L>"+"<BR>";
 	  printData += "<L>"+"地址:"+contact.address+"</L>"+"<BR><BR><BR><CUT>";
 	  console.log(printData);
-	  printData = "test<BR>"
+	  // printData = "test<BR>"
 	  return printData;
 }
 
@@ -124,7 +124,7 @@ function print_by_shop(shop){
 	})
 // },5000);
 
-// yunPrint('916506380',77);
+// yunPrint('916506380',24910);
 
 setTimeout(function(){
  dw.end();
