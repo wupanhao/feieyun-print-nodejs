@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/wupanhao/feieyun-print-nodejs#readme",
   "dependencies": {
+    "express": "^4.16.1",
     "mysql": "^2.14.1"
   }
 }
