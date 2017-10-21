@@ -104,31 +104,29 @@ function yunPrint(printer_id,id,amount){
 // printer.print(,'<QR>http://www.easyfind.com</QR>');
 // yunPrint('916506380',77);
 
-function print_by_shop(shop){
-	console.log(shop);
-	var q = 'SELECT * from `order` WHERE updated_at > CURDATE() and shop_id='+shop.shop_id +' and status > 10 and printed=0 limit 1';
-	console.log(q);
-	// console.log('print_by_shop amount'+shop.amount)
-	// var amount = shop.amount;
-	dw.query(q,function(error,response,fields,id=shop.shop_id,amount=shop.amount){
-		// console.log(response);
-		response.forEach(function(order){
-		// console.log('print_by_shop '+ id + ' amount'+amount);
-		yunPrint(shop.printer_sn,order.id,shop.amount);
-	})
-})
-}
-
-// setInterval(function(){
-	var q = 'SELECT * from `yun_print` WHERE amount>0';
-	dw.query(q,function(error,response,fields){
-		// console.log(response);
-		response.forEach(print_by_shop)
-	})
-// },5000);
-
 // yunPrint('916506380',24910);
+
+	  var id = 25983;
+	var q = 'SELECT * from `order` WHERE id='+id;
+
+	dw.query(q, function (error, results, fields) {
+	  if (error) 
+	  	console.log(error);
+
+	  console.log(results[0]);
+	  var order = results[0];
+
+	  var q = 'SELECT * from `order_item` WHERE order_id='+id;
+	  console.log(q);
+	  dw.query(q, function (error, results, fields){
+
+		  var order_items = results;
+		  var printData = orderFormat(order,order_items);
+		  console.log(printData);
+
+			});
+	});
 
 setTimeout(function(){
  dw.end();
-},15000);
+},5000);
