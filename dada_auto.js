@@ -22,7 +22,7 @@ function check_and_use(id){
 		if(res.data && res.data.code == 2005){
 			// 发达达
 			console.log(id,'use dada')
-			// use_dada(id)
+			use_dada(id)
 		}
 		else if(res.data && res.data.code != 2005){
 		q = 'update `order` set dada=1 where id='+id;
