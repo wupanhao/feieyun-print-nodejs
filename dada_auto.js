@@ -25,7 +25,7 @@ function check_and_use(id){
 			// use_dada(id)
 		}
 		else if(res.data && res.data.code != 2005){
-		q = 'update order set dada=1 where id='+id;
+		q = 'update `order` set dada=1 where id='+id;
 		dw.query(q, function (error, results){
 	  	console.log(results);
 	  	console.log('update ',id)
@@ -56,7 +56,7 @@ function query(){
 
 dw.query('select * from platform_profile',(error,results,fields)=>{
 	if(results && results[0]){
-		console.log(results,results[0].dada_auto.toJSON().data[0])
+//		console.log(results,results[0].dada_auto.toJSON().data[0])
 		if( results[0].dada_auto.toJSON().data[0]==1){
 		console.log('dada in use');
 		query()
