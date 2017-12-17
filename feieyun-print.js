@@ -49,7 +49,7 @@ function orderFormat(order,order_items){
 	  printData += "<L>"+"姓名:"+contact.name+"</L>"+"<BR>";
 	  printData += "<L>"+"电话:"+contact.mobile+"</L>"+"<BR>";
 	  printData += "<L>"+"地址:"+contact.address+"</L>"+"<BR><BR><BR><CUT>";
-	  console.log(printData);
+	  // console.log(printData);
 	  // printData = "test<BR>"
 	  return printData;
 }
@@ -75,7 +75,7 @@ function yunPrint(printer_id,id,amount){
 		return ;
 	}
 
-	console.log(amount)
+	// console.log(amount)
 
 	var q = 'SELECT * from `order` WHERE id='+id;
 
@@ -87,7 +87,7 @@ function yunPrint(printer_id,id,amount){
 	  var order = results[0];
 
 	  var q = 'SELECT * from `order_item` WHERE order_id='+id;
-	  console.log(q);
+	  // console.log(q);
 	  dw.query(q, function (error, results, fields){
 
 		  var order_items = results;
@@ -105,9 +105,9 @@ function yunPrint(printer_id,id,amount){
 // yunPrint('916506380',77);
 
 function print_by_shop(shop){
-	console.log(shop);
+	// console.log(shop);
 	var q = 'SELECT * from `order` WHERE updated_at > CURDATE() and shop_id='+shop.shop_id +' and status > 10 and printed=0 limit 1';
-	console.log(q);
+	// console.log(q);
 	// console.log('print_by_shop amount'+shop.amount)
 	// var amount = shop.amount;
 	dw.query(q,function(error,response,fields,id=shop.shop_id,amount=shop.amount){
